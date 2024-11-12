@@ -8,31 +8,24 @@ var express = require('express');
 var app = express();
 var cors = require('cors');
 
-app.use(cors({ optionsSuccessStatus: 200 })); // enable CORS for testing
+app.use(cors({ optionsSuccessStatus: 200 })); 
 app.use(express.static('public'));
 
-// Home route serving index.html
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-// Test endpoint
 app.get('/api/hello', function (req, res) {
   res.json({ greeting: 'hello API' });
 });
 
-// whoami API endpoint
 app.get('/api/whoami', function (req, res) {
-  // Get the IP address
   const ipaddress = req.ip;
 
-  // Get the preferred language from the 'Accept-Language' header
   const language = req.headers['accept-language'];
 
-  // Get the software (user agent) from the 'User-Agent' header
   const software = req.headers['user-agent'];
 
-  // Respond with the required JSON object
   res.json({
     ipaddress: ipaddress,
     language: language,
